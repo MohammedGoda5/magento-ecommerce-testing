@@ -86,8 +86,7 @@
                             <trimStackTrace>false</trimStackTrace>
                             <useFile>false</useFile>
                             <argLine>
-                                @{argLine} ${surefireArgLine}
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
+                                ${surefireArgLine} -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectjweaver.version}/aspectjweaver-${aspectjweaver.version}.jar"
                             </argLine>
                             <properties>
                                 <property>

@@ -23,10 +23,10 @@ public class BaseTest {
         driver.browser().navigateToURL("https://magento.softwaretestingboard.com");
     }
 
-//    @AfterMethod
-//    public void close() {
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//}
+    @AfterMethod
+    public void close() {
+        if (driver != null) {
+            driver.quit();
+        }
+}
 }
