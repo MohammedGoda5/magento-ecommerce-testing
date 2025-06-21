@@ -16,12 +16,16 @@ public class HomePage {
     private final By searchBarLocator = By.id("search");
     private final By searchButtonLocator = By.xpath("//button[@title='Search' and @type='submit']");
     private final By FirstProductLocator = By.xpath("(//li[@class='product-item'])[1]");
-
+    private final By invalidSearchLocator = By.xpath("//div[@class='message notice']");
 
     /*       Methods        */
     public void searchForItem(String searchItem) {
         driver.element().type(searchBarLocator, searchItem);
         driver.element().click(searchButtonLocator);
+    }
+
+    public void noSearchResultSearchMessage(String invalidSearchResultMessage){
+        driver.element().assertThat(invalidSearchLocator).text().contains(invalidSearchResultMessage);
     }
 
     public AddProductPage ChooseFirstProductItem() {

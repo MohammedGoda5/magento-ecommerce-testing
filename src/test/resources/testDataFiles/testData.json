@@ -1,5 +1,7 @@
 {
   "validSearchQuery": "hoodie",
+  "invalidSearchQuery": "asd",
+  "invalidSearchMessage": "Your search returned no results.",
   "successfulAddedToCartMessage": "You added Radiant Tee to your ",
   "errorMessageAddingItem": "The requested qty is not available",
   "email":"920fbb975bc5@drmail.in",
