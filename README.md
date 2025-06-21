@@ -1,6 +1,7 @@
 # 🧪 Magento E-Commerce Test Automation Project
 
-This automation framework validates key workflows on the [Magento Demo Site](https://magento.softwaretestingboard.com), using the [SHAFT Engine](https://github.com/ShaftHQ/SHAFT_ENGINE) with Selenium, TestNG, and Java.
+This automation framework validates key workflows on the [Magento Demo Site](https://magento.softwaretestingboard.com),
+using the [SHAFT Engine](https://github.com/ShaftHQ/SHAFT_ENGINE) with Selenium, TestNG, and Java.
 
 
 
@@ -11,7 +12,6 @@ To ensure the quality of an e-commerce platform by automating critical scenarios
 - Product search (valid/invalid)
 - Add to cart functionality
 - Checkout flow
-- Basic input validation (XSS/SQLi) (Manual)
 
 ---
 
@@ -61,10 +61,10 @@ magento-ecommerce-testing/
 - Java 21 
 - Maven  3.9.9
 - git version 2.45.1.windows.1
-- Internet connection
 
- Execution (via PowerShell or Terminal)
+ Execution (via PowerShell or Terminal) or IDE  i.e(IntelliJ)
 
-```bash
-# Clean & execute tests defined in testng.xml
-mvn clean test --% -DsuiteXmlFile=testng.xml
+
+# Steps to run the script   
+`mvn clean test --% -DsuiteXmlFile=testng.xml
+`

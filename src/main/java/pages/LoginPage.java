@@ -13,7 +13,6 @@ public class LoginPage {
 
 
                             /*        Locators        */
-
 private final By signInLink=By.linkText("Sign In");
 private final By emailAddress=By.id("email");
 private final By passwordLocator =By.name("login[password]");

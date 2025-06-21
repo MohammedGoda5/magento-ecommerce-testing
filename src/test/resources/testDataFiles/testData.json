@@ -1,8 +1,14 @@
 {
   "validSearchQuery": "hoodie",
-  "successfulAddedToCartMessage": "You added Hero Hoodie to your ",
+  "successfulAddedToCartMessage": "You added Radiant Tee to your ",
   "errorMessageAddingItem": "The requested qty is not available",
   "email":"920fbb975bc5@drmail.in",
   "password": "123456789Mm",
-  "successfulPurchase":"Thank you for your purchase!"
+  "successfulPurchase":"Thank you for your purchase!",
+  "color-blue":"Blue",
+  "size-l": "L",
+  "street":"St",
+  "city": "M",
+  "postcode":"12345",
+  "phoneNumber": "0"
 }

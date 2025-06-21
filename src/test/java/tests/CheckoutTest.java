@@ -11,10 +11,22 @@ public class CheckoutTest extends BaseTest {
         loginPage.Login(testData.getTestData("email"),
                 testData.getTestData("password"));
         homePage=loginPage.navigateHomePage();
-        checkoutPage=homePage.OpenCheckoutPage();
-        checkoutPage.fillShippingAddressForm("asd","asd","12345","0");
+        addProductPage=homePage.ChooseFirstProductItem();
+        addProductPage.addProductToCart(
+                testData.getTestData("size-l"),
+                testData.getTestData("color-blue")
+        );
+        checkoutPage=addProductPage.OpenCheckoutPage();
+        checkoutPage.fillShippingAddressForm(
+                testData.getTestData("street"),
+                testData.getTestData("city"),
+                testData.getTestData("postcode"),
+                testData.getTestData("phoneNumber")
+        );
         checkoutPage.placeAnOrder();
-        checkoutPage.checkSuccessfulPurchase(testData.getTestData("successfulPurchase"));
+        checkoutPage.checkSuccessfulPurchase(
+                testData.getTestData("successfulPurchase")
+        );
     }
 
 }

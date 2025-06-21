@@ -11,30 +11,42 @@ public class AddProductPage {
     }
 
 
-
-                    /*        Locators         */
-    private final By successfulMessageLocator = By.xpath("//*[@id='maincontent']/div[1]/div[2]/div/div");
-    private final By failMessageLocator = By.xpath("//*[@id='maincontent']/div[1]/div[2]/div/div/div");
-    private final By selectSize = By.id("option-label-size-143-item-169");
-    private final By selectColor = By.id("option-label-color-93-item-49");
+    /*        Locators         */
+    private final By getMessageLocator = By.xpath("//div[@role='alert' and @class='messages']");
     private final By addToCartButton = By.id("product-addtocart-button");
-                    /*        Methods         */
+    private final By addedItemsToCart = By.cssSelector("a.action.showcart");
+    private final By proceedToCheckout = By.id("top-cart-btn-checkout");
+    /*        Methods         */
 
+    private By selectSize(String size) {
+        return By.xpath("//div[@aria-label='" + size + "']");
+    }
 
-    public void addProductToCart(){
-        driver.element().click(selectSize);
-        driver.element().click(selectColor);
+    private By selectColor(String color) {
+        return By.xpath("//div[@aria-label='" + color + "']");
+    }
+
+    public void addProductToCart(String size, String color) {
+        driver.element().click(selectSize(size));
+        driver.element().click(selectColor(color));
         driver.element().click(addToCartButton);
     }
 
-    public void SuccessfullAddItemToCart(String successfullMessage){
-        driver.element().scrollToElement(successfulMessageLocator);
-        driver.element().assertThat(successfulMessageLocator).text().contains(successfullMessage);
+    public void SuccessfullAddItemToCart(String successfullMessage) {
+        driver.element().scrollToElement(getMessageLocator);
+        driver.element().assertThat(getMessageLocator).text().contains(successfullMessage);
 
     }
+    public CheckoutPage OpenCheckoutPage() {
 
-    public void setFailMessageLocator(String failMessage){
-        driver.element().scrollToElement(failMessageLocator);
-        driver.element().assertThat(failMessageLocator).text().contains(failMessage);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        driver.element().click(addedItemsToCart);
+        driver.element().click(proceedToCheckout);
+        return new CheckoutPage(driver);
     }
+
 }
