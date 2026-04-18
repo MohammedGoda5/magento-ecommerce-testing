@@ -9,6 +9,10 @@ import pages.CheckoutPage;
 import pages.HomePage;
 import pages.LoginPage;
 
+/**
+ * Base test class providing common setup and teardown for all tests.
+ * Uses SHAFT_ENGINE for WebDriver management and test data handling.
+ */
 public class BaseTest {
     protected SHAFT.GUI.WebDriver driver;
     protected SHAFT.TestData.JSON testData = new SHAFT.TestData.JSON("testData.json");
@@ -17,16 +21,24 @@ public class BaseTest {
     protected AddProductPage addProductPage;
     protected CheckoutPage checkoutPage;
 
+    /**
+     * Setup method executed before each test method.
+     * Initializes WebDriver and navigates to base URL.
+     */
     @BeforeMethod
     public void setup() {
         driver = new SHAFT.GUI.WebDriver();
         driver.browser().navigateToURL("https://magento.softwaretestingboard.com");
     }
 
-//    @AfterMethod
-//    public void close() {
-//        if (driver != null) {
-//            driver.quit();
-//        }
-//}
+    /**
+     * Teardown method executed after each test method.
+     * Ensures WebDriver is properly closed to prevent resource leaks.
+     */
+    @AfterMethod
+    public void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
+    }
 }
