@@ -1,0 +1,114 @@
+name: Parallel Test Execution
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1' # Weekly on Monday at 3 AM
+
+env:
+  MAVEN_OPTS: "-Xmx2g -XX:+UseG1GC"
+
+jobs:
+  # Split tests into groups for parallel execution
+  test-product-search:
+    name: Product Search Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+    
+    - name: Set up Chrome
+      run: |
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Run Product Search Tests
+      run: xvfb-run --auto-servernum mvn test -Dtest=ProductSearchTest -Dheadless=true
+
+    - name: Upload Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: product-search-results
+        path: target/surefire-reports/
+
+  test-add-to-cart:
+    name: Add to Cart Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+    
+    - name: Set up Chrome
+      run: |
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Run Add to Cart Tests
+      run: xvfb-run --auto-servernum mvn test -Dtest=AddToCartTest -Dheadless=true
+
+    - name: Upload Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: add-to-cart-results
+        path: target/surefire-reports/
+
+  test-checkout:
+    name: Checkout Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: 'maven'
+    
+    - name: Set up Chrome
+      run: |
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+        sudo apt-get update
+        sudo apt-get install -y google-chrome-stable
+
+    - name: Run Checkout Tests
+      run: xvfb-run --auto-servernum mvn test -Dtest=CheckoutTest -Dheadless=true
+
+    - name: Upload Results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: checkout-results
+        path: target/surefire-reports/
+
+  # Combine all reports after parallel execution
+  merge-reports:
+    name: Merge Reports
+    needs: [test-product-search, test-add-to-cart, test-checkout]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Download All Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+        pattern: '*-results'
+
+    - name: Upload Combined Reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: combined-test-reports
+        path: artifacts/

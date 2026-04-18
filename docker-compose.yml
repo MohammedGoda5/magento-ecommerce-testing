@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: magento-tests
+    volumes:
+      - ./target:/app/target
+      - ./allure-results:/app/allure-results
+    environment:
+      - MAVEN_OPTS=-Xmx2g
+    command: >
+      xvfb-run --auto-servernum --server-args="-screen 0 1920x1080x24" 
+      mvn clean test -Dheadless=true -Dbrowser=chrome

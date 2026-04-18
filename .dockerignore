@@ -1,0 +1,36 @@
+# Git files
+.git
+.gitignore
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# Build outputs (will be created fresh)
+target/
+allure-results/
+allure-report/
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation (not needed for test execution)
+README.md
+docs/
+
+# CI/CD configs (not needed in image)
+.github/
+
+# Test artifacts
+screenshots/
+videos/
